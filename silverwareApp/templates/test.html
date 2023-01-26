@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    {% block title %} My store {% endblock %}
+  </head>
+  <body>
+  {% block content%}
+    {% for vlist in product_list %}
+    <h6> 商品 : {{vlist.product_title }} </h6>
+    <ul>
+      <li>庫存 : {{ vlist.inventory }}</li>
+      <li>價格 : {{ vlist.price }}</li>
+      <li>已售出 : {{ vlist.sold }}</li>
+      <li>描述 : {{ vlist.description }}</li>
+      <li>圖片 : <img src="{{vlist.image.url}}"></li>
+    </ul>
+    {% endfor %}
+
+    <form action="photo/" enctype="multipart/form-data" method="POST">
+      {% csrf_token %}
+      {{ form.image }}
+      <input class="btn btn-success" type="submit" value="submit" />
+    </form>
+  {% endblock %}
+  </body>
+</html>
